@@ -181,6 +181,11 @@ ifeq "$(TYPE)" "mcs"
 	gennetfilter += -c
 endif
 
+# enable systemd policy
+ifeq "$(INIT)" "systemd"
+        M4PARAM += -D init_systemd
+endif
+
 # enable distribution-specific policy
 ifneq ($(DISTRO),)
 	M4PARAM += -D distro_$(DISTRO)
@@ -210,6 +215,10 @@ endif
 
 ifeq "$(UBAC)" "y"
 	M4PARAM += -D enable_ubac
+endif
+
+ifeq "$(INIT_SYSTEMD)" "y"
+	M4PARAM += -D init_systemd
 endif
 
 # default MLS/MCS sensitivity and category settings.
