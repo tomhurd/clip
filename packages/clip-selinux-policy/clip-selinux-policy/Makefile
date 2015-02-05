@@ -181,11 +181,6 @@ ifeq "$(TYPE)" "mcs"
 	gennetfilter += -c
 endif
 
-# enable systemd policy
-ifeq "$(INIT)" "systemd"
-        M4PARAM += -D init_systemd
-endif
-
 # enable distribution-specific policy
 ifneq ($(DISTRO),)
 	M4PARAM += -D distro_$(DISTRO)

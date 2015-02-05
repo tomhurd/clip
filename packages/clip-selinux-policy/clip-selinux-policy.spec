@@ -128,7 +128,7 @@ fi
 
 %define loadpolicy() \
 . %{_sysconfdir}/selinux/config; \
-( cd /usr/share/selinux/%1; semodule -n -b base.pp.bz2 -i %2 -s %1 2>&1 ); \
+( cd /usr/share/selinux/%1; semodule -n -b base.pp.bz2 -i %2 -s %1 2>&1 | /bin/tee /tmp/load_policy.log ); \
 
 %define relabel() \
 . %{_sysconfdir}/selinux/config; \
@@ -200,6 +200,7 @@ SELINUX=%{enforcing_mode}
 #     clip - Targeted processes are protected,
 #     mls - Multi Level Security protection.
 SELINUXTYPE=clip 
+AUTORELABEL=1
 
 " > /etc/selinux/config
 
@@ -245,14 +246,15 @@ Based off of reference policy refpolicy-2.20110726.tar.bz2
 %post clip
 packages=`cat /usr/share/selinux/clip/modules.lst`
 if [ $1 -eq 1 ]; then
-   %loadpolicy clip $packages
-   restorecon -R /root /var/log /var/run 2> /dev/null
+   %loadpolicy clip $packages 2>> /tmp/policy_load.log
+   restorecon -R /root /var/log /var/run 2>> /tmp/policy_load.log
 else
 #   semodule -n -s clip 2>/dev/null
-   %loadpolicy clip $packages
-   %relabel clip
+   %loadpolicy clip $packages 2>> /tmp/policy_load.log
+   %relabel clip 2>> /tmp/policy_load.log
 fi
-touch /.autorelabel
+
+echo "-F" > /.autorelabel
 exit 0
 
 %files clip
