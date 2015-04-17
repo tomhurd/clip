@@ -123,6 +123,7 @@ optional_policy(`
 		systemd_socket_activated(system_dbusd_t, system_dbusd_var_run_t)
 		systemd_logind_fd_use(system_dbusd_t)
 		systemd_logind_pid_pipes_manage(system_dbusd_t)
+		kernel_dgram_send(system_dbusd_t)
 	')
 ')
 

@@ -86,6 +86,9 @@ logging_log_file(initrc_var_log_t)
 type initrc_var_run_t;
 files_pid_file(initrc_var_run_t)
 
+type initrc_lock_t;
+files_lock_file(initrc_lock_t)
+
 ifdef(`distro_gentoo',`
 	type rc_exec_t;
 	domain_entry_file(initrc_t, rc_exec_t)
@@ -376,7 +379,11 @@ manage_lnk_files_pattern(initrc_t, initrc_state_t, initrc_state_t)
 manage_fifo_files_pattern(initrc_t, initrc_state_t, initrc_state_t)
 
 allow initrc_t initrc_var_run_t:file manage_file_perms;
-files_pid_filetrans(initrc_t, initrc_var_run_t, file)
+files_pid_filetrans(initrc_t, initrc_var_run_t, dir_file_class_set)
+manage_chr_files_pattern(initrc_t, initrc_var_run_t, initrc_var_run_t)
+manage_lnk_files_pattern(initrc_t, initrc_var_run_t, initrc_var_run_t)
+files_lock_filetrans(initrc_t, initrc_lock_t, file)
+manage_files_pattern(initrc_t, initrc_lock_t, initrc_lock_t)
 
 can_exec(initrc_t, initrc_tmp_t)
 manage_files_pattern(initrc_t, initrc_tmp_t, initrc_tmp_t)
@@ -729,11 +736,17 @@ ifdef(`init_systemd',`
 	systemd_unit_files_service_stop(initrc_t)
 	systemd_power_units_service_start(initrc_t)
 	systemd_unit_files_manage(initrc_t)
+	systemd_create_unit_file_dirs(initrc_t)
 	systemd_unit_symlinks_manage(initrc_t)
 	manage_dirs_pattern(initrc_t, init_var_run_t, init_var_run_t)
 	systemd_socket_activated(initrc_t, init_var_run_t)
 	init_var_lib_files_write(initrc_t)
 	files_read_boot_files(initrc_t)
+	# Allow initrc_t to check /etc/fstab "service." It appears that
+	# systemd is conflating files and services.
+	files_status_etc_service(initrc_t)
+	files_setattr_pid_dirs(initrc_t)
+	firewalld_dbus_chat(initrc_t)
 ')
 
 optional_policy(`
