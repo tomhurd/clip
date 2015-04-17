@@ -574,6 +574,8 @@ allow systemd_logind_t self:fifo_file delete_fifo_file_perms;
 userdom_use_user_ttys(systemd_logind_t)
 init_var_lib_filetrans(systemd_logind_t, systemd_logind_var_lib_t, dir)
 auth_manage_faillog(systemd_logind_t)
+#TODO: remove comment. this is needed for adding /var/run/user/1000
+auth_manage_var_auth(systemd_logind_t)
 
 systemd_logind_pid_files_manage(systemd_logind_t)
 files_read_all_pids(systemd_logind_t)
@@ -612,6 +614,12 @@ systemd_unit_files_service_start(systemd_logind_t)
 systemd_unit_files_service_stop(systemd_logind_t)
 systemd_power_units_service_start(systemd_logind_t)
 init_service_status(systemd_logind_t)
+init_service_start(systemd_logind_t)
+#TODO remove comment: this is for reading /proc/1/cgroup
+init_read_state(systemd_logind_t)
+
+#TODO whats best way to handle allow systemd_logind_t local_login_t:file read_file_perms;
+domain_read_all_domains_state(systemd_logind_t)
 
 #########################################
 #
