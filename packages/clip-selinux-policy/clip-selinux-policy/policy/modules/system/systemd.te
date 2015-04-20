@@ -347,6 +347,8 @@ type systemd_logind_var_run_t;
 files_pid_file(systemd_logind_var_run_t)
 init_daemon_pid_file(systemd_logind_var_run_t, dir, "systemd_logind")
 
+manage_fifo_files_pattern(systemd_logind_t, systemd_logind_var_run_t, systemd_logind_var_run_t)
+
 #
 # Systemd Sessions
 #
@@ -389,6 +391,7 @@ systemd_unit_file(systemd_unit_file_t)
 
 type systemd_shutdown_t;
 type systemd_log_t;
+logging_log_file(systemd_log_t)
 
 type iptables_unit_file_t;
 systemd_unit_file(iptables_unit_file_t)
