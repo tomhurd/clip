@@ -38,6 +38,7 @@ files_pid_filetrans(shutdown_t, shutdown_var_run_t, file)
 kernel_read_system_state(shutdown_t)
 
 domain_use_interactive_fds(shutdown_t)
+domain_sigstop_all_domains(shutdown_t)
 
 files_delete_boot_flag(shutdown_t)
 files_read_generic_pids(shutdown_t)
