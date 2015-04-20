@@ -197,7 +197,7 @@ ifdef(`init_systemd',`
 	files_read_all_pids(init_t)
     
 	# For /var/run/shutdown.pid.
-    manage_files_pattern(init_t, init_var_run_t, init_var_run_t)
+	manage_files_pattern(init_t, init_var_run_t, init_var_run_t)
 	manage_lnk_files_pattern(init_t, init_var_run_t, init_var_run_t)
 	manage_sock_files_pattern(init_t, init_var_run_t, init_var_run_t)
 
@@ -743,7 +743,22 @@ ifdef(`init_systemd',`
 	# systemd is conflating files and services.
 	files_status_etc_service(initrc_t)
 	files_setattr_pid_dirs(initrc_t)
-	firewalld_dbus_chat(initrc_t)
+
+	# Create /etc/audit.rules.prev after firstboot remediation
+	logging_manage_audit_config(initrc_t)
+
+	# lvm2-activation-generator checks file labels
+	seutil_read_file_contexts(initrc_t)
+
+	optional_policy(`
+		firewalld_dbus_chat(initrc_t)
+	')
+
+	optional_policy(`
+		# create /var/lock/lvm/
+		lvm_create_lock_dirs(initrc_t)
+
+	')
 ')
 
 optional_policy(`
