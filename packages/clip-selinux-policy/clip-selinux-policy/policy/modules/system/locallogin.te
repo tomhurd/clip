@@ -137,9 +137,9 @@ userdom_create_all_users_keys(local_login_t)
 
 ifdef(`init_systemd',`
 	systemd_logind_dbus_chat(local_login_t)
-	systemd_logind_fd_use(local_login_t)
+	systemd_logind_use_fds(local_login_t)
 	auth_manage_faillog(local_login_t)
-	systemd_logind_pid_pipes_manage(local_login_t)
+	systemd_logind_manage_pid_pipes(local_login_t)
 ')
 
 ifdef(`distro_ubuntu',`

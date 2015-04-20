@@ -247,10 +247,10 @@ ifdef(`init_systemd',`
 	relabelfrom_sock_files_pattern(init_t, tmpfs_t, tmpfs_t)
 	relabel_sock_files_pattern(init_t, pidfile, pidfile)
 
-	systemd_unit_dirs_manage(init_t)
-	systemd_unit_files_manage(init_t)
-	systemd_unit_dirs_relabelto(init_t)
-	systemd_unit_symlinks_manage(init_t)
+	systemd_manage_unit_dirs(init_t)
+	systemd_manage_unit_files(init_t)
+	systemd_relabelto_unit_dirs(init_t)
+	systemd_manage_unit_symlinks(init_t)
 
 	# systemd_socket_activated policy
 	mls_socket_write_all_levels(init_t)
@@ -272,9 +272,6 @@ ifdef(`init_systemd',`
 	optional_policy(`
 		modutils_domtrans_insmod(init_t)
 	')
-
-	systemd_unit_dirs_manage(init_t)
-	systemd_unit_files_manage(init_t)
 
 	optional_policy(`
 		dbus_system_bus_client(init_t)
@@ -735,9 +732,9 @@ ifdef(`init_systemd',`
 	systemd_unit_files_service_start(initrc_t)
 	systemd_unit_files_service_stop(initrc_t)
 	systemd_power_units_service_start(initrc_t)
-	systemd_unit_files_manage(initrc_t)
+	systemd_manage_unit_files(initrc_t)
 	systemd_create_unit_file_dirs(initrc_t)
-	systemd_unit_symlinks_manage(initrc_t)
+	systemd_manage_unit_symlinks(initrc_t)
 	manage_dirs_pattern(initrc_t, init_var_run_t, init_var_run_t)
 	systemd_socket_activated(initrc_t, init_var_run_t)
 	init_var_lib_files_write(initrc_t)

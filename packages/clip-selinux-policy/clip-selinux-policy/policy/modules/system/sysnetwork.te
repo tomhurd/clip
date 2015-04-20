@@ -240,7 +240,7 @@ optional_policy(`
 
 optional_policy(`
 	systemd_services_status(dhcpc_t)
-	systemd_unit_dirs_search(dhcpc_t)
+	systemd_search_unit_dirs(dhcpc_t)
 ')
 
 optional_policy(`

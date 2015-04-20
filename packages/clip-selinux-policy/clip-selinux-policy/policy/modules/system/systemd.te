@@ -577,7 +577,7 @@ auth_manage_faillog(systemd_logind_t)
 #TODO: remove comment. this is needed for adding /var/run/user/1000
 auth_manage_var_auth(systemd_logind_t)
 
-systemd_logind_pid_files_manage(systemd_logind_t)
+systemd_logind_manage_pid_files(systemd_logind_t)
 files_read_all_pids(systemd_logind_t)
 
 dev_rw_sysfs(systemd_logind_t)
@@ -696,7 +696,7 @@ systemd_unit_files_service_stop(systemd_sysctl_t)
 
 init_connect_private_bus(systemd_systemctl_t)
 files_read_all_pids(systemd_systemctl_t)
-systemd_unit_dirs_getattr(systemd_systemctl_t)
+systemd_search_unit_dirs(systemd_systemctl_t)
 
 #########################################
 #
