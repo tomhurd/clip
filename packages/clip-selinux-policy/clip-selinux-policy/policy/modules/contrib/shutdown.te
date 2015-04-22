@@ -24,7 +24,7 @@ files_pid_file(shutdown_var_run_t)
 # Local policy
 #
 
-allow shutdown_t self:capability { dac_override kill setuid sys_nice sys_tty_config };
+allow shutdown_t self:capability { dac_override kill setuid sys_nice sys_tty_config ipc_lock };
 allow shutdown_t self:process { setsched signal signull };
 allow shutdown_t self:fifo_file manage_fifo_file_perms;
 allow shutdown_t self:unix_stream_socket create_stream_socket_perms;
@@ -39,6 +39,7 @@ kernel_read_system_state(shutdown_t)
 
 domain_use_interactive_fds(shutdown_t)
 domain_sigstop_all_domains(shutdown_t)
+domain_search_all_domains_state(shutdown_t)
 
 # Satisfy mcs constraint for process sigstop
 ifdef(`enable_mcs',`

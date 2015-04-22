@@ -725,6 +725,10 @@ ifdef(`distro_suse',`
 ')
 
 ifdef(`init_systemd',`
+
+	# is this better than calling init_domain(initrc_t)?
+	allow initrc_t init_t:unix_stream_socket { write read getattr ioctl };
+
 	# run systemd misc initializations
 	# in the initrc_t domain, as would be
 	# done in traditional sysvinit/upstart.
