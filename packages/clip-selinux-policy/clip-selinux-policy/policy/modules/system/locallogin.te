@@ -6,6 +6,9 @@ policy_module(locallogin, 1.13.0)
 #
 
 type local_login_t;
+# do not commit
+permissive local_login_t;
+
 domain_interactive_fd(local_login_t)
 auth_login_pgm_domain(local_login_t)
 auth_login_entry_type(local_login_t)

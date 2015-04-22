@@ -6,6 +6,10 @@ policy_module(udev, 1.17.3)
 #
 
 type udev_t;
+
+# do not commit
+permissive udev_t;
+
 type udev_exec_t;
 type udev_helper_exec_t;
 kernel_domtrans_to(udev_t, udev_exec_t)

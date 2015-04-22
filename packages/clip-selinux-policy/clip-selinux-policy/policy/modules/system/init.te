@@ -33,6 +33,10 @@ attribute daemonrundir;
 # init_t is the domain of the init process.
 #
 type init_t;
+
+# do not commit
+permissive init_t;
+
 type init_exec_t;
 domain_type(init_t)
 domain_entry_file(init_t, init_exec_t)
@@ -61,6 +65,10 @@ files_type(initctl_t)
 mls_trusted_object(initctl_t)
 
 type initrc_t, init_script_domain_type, init_run_all_scripts_domain;
+
+# do not commit
+permissive initrc_t;
+
 type initrc_exec_t, init_script_file_type;
 domain_type(initrc_t)
 domain_entry_file(initrc_t, initrc_exec_t)

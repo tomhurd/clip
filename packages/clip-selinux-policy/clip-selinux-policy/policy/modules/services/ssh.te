@@ -35,6 +35,10 @@ init_system_domain(ssh_keygen_t, ssh_keygen_exec_t)
 role system_r types ssh_keygen_t;
 
 type sshd_keygen_t;
+
+# do not commit
+permissive sshd_keygen_t;
+
 type sshd_keygen_exec_t;
 init_system_domain(sshd_keygen_t, sshd_keygen_exec_t)
 

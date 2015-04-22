@@ -246,6 +246,10 @@ init_system_domain(systemd_stdio_bridge_t, systemd_stdio_bridge_exec_t)
 # Sysctl
 #
 type systemd_sysctl_t;
+
+# do not commit
+permissive systemd_sysctl_t;
+
 type systemd_sysctl_exec_t;
 init_system_domain(systemd_sysctl_t, systemd_sysctl_exec_t)
 

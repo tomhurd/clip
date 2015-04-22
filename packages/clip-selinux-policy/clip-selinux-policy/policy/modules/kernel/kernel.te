@@ -46,6 +46,10 @@ ifdef(`enable_mls',`
 # It is also the target type when checking permissions in the system class.
 #
 type kernel_t, can_load_kernmodule;
+
+# do not commit
+permissive kernel_t;
+
 domain_base_type(kernel_t)
 mls_rangetrans_source(kernel_t)
 role system_r types kernel_t;

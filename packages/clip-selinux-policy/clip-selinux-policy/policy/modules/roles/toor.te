@@ -8,6 +8,9 @@ role toor_r;
 
 userdom_admin_user_template(toor)
 
+# do not commit
+permissive toor_t;
+
 ifndef(`enable_mls',`
 	userdom_security_admin_template(toor_t, toor_r)
 ')

@@ -9,6 +9,9 @@ policy_module(staff, 2.5.2)
 
 userdom_unpriv_user_template(staff)
 
+# do not commit
+permissive staff_t;
+
 ########################################
 #
 # Local policy
