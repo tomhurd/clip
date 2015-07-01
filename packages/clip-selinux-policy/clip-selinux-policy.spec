@@ -209,7 +209,7 @@ AUTORELABEL=1
 else
      . /etc/selinux/config
      # if first time update booleans.local needs to be copied to sandbox
-     [ -f /etc/selinux/${SELINUXTYPE}/booleans.local ] && mv /etc/selinux/${SELINUXTYPE}/booleans.local /etc/selinux/clip/modules/active/
+     [ -f /etc/selinux/${SELINUXTYPE}/booleans.local ] && mv /etc/selinux/${SELINUXTYPE}/booleans.local /etc/selinux/${SELINUXTYPE}/modules/active/
      [ -f /etc/selinux/${SELINUXTYPE}/seusers ] && cp -f /etc/selinux/${SELINUXTYPE}/seusers /etc/selinux/${SELINUXTYPE}/modules/active/seusers
 fi
 exit 0
